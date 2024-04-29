@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CentroComercialManager {
+    private List<CentroComercial> tiendas;
+
+    public CentroComercialManager() {
+        tiendas = new ArrayList<>();
+    }
+
+     
+    public void agregarTienda(CentroComercial tienda) {
+        tiendas.add(tienda);
+    }
+
+    
+    public List<CentroComercial> obtenerTodasLasTiendas() {
+        return new ArrayList<>(tiendas);
+    }
+
+    
+
+    public static void main(String[] args) {
+        // Ejemplo de uso
+        CentroComercialManager manager = new CentroComercialManager();
+
+   
+        CentroComercial tienda1 = new CentroComercial("Tienda 1", "Ropa", new DescuentoRopaNino());
+        CentroComercial tienda2 = new CentroComercial("Tienda 2", "Electrónicos", new DescuentoDispositivosElectronicos());
+
+      
+        manager.agregarTienda(tienda1);
+        manager.agregarTienda(tienda2);
+
+       
+        List<CentroComercial> todasLasTiendas = manager.obtenerTodasLasTiendas();
+        for (CentroComercial tienda : todasLasTiendas) {
+            System.out.println(tienda);
+        }
+    }
+}
