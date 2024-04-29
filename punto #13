@@ -1,0 +1,60 @@
+
+public interface DescuentoStrategy {
+    double calcularDescuento(double descuento);
+}
+
+
+public class DescuentoRopaNino implements DescuentoStrategy {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.8;
+    }
+}
+
+
+public class DescuentoDispositivosElectronicos implements DescuentoStrategy {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.4;
+    }
+}
+
+
+public class CentroComercial {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private DescuentoStrategy descuentoStrategy;
+
+    public CentroComercial(String nombreTienda, String tipoDeComercio, double descuento) {
+        this.nombreTienda = nombreTienda;
+        this.tipoDeComercio = tipoDeComercio;
+        
+        
+        switch (tipoDeComercio.toLowerCase()) {
+            case "ropa de niño":
+                descuentoStrategy = new DescuentoRopaNino();
+                break;
+            case "dispositivos electrónicos":
+                descuentoStrategy = new DescuentoDispositivosElectronicos();
+                break;
+            
+            default:
+                descuentoStrategy = null; // o lanzar una excepción si se desea
+        }
+    }
+
+    public double calcularDescuento(double descuento) {
+        if (descuentoStrategy != null) {
+            return descuentoStrategy.calcularDescuento(descuento);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la tienda: " + nombreTienda +
+                "\nTipo de comercio: " + tipoDeComercio +
+                "\nDescuento aplicado: " + calcularDescuento(descuento);
+    }
+}
