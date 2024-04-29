@@ -1,0 +1,57 @@
+////Aquí está cómo podríamos reestructurar la clase CentroComercial utilizando composición ////  carlos steven giraldo 
+
+public class CentroComercial {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private DescuentoCalculator descuentoCalculator;
+
+    public CentroComercial(String nombreTienda, String tipoDeComercio, DescuentoCalculator descuentoCalculator) {
+        this.nombreTienda = nombreTienda;
+        this.tipoDeComercio = tipoDeComercio;
+        this.descuentoCalculator = descuentoCalculator;
+    }
+
+    public double calcularDescuento(double descuento) {
+        return descuentoCalculator.calcularDescuento(descuento);
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la tienda: " + nombreTienda +
+                "\nTipo de comercio: " + tipoDeComercio +
+                "\nDescuento aplicado: " + calcularDescuento(descuento);
+    }
+}
+  //// ejemplo de como se puede implementar este cambio /// 
+public interface DescuentoCalculator {
+    double calcularDescuento(double descuento);
+}
+
+public class DescuentoRopaNino implements DescuentoCalculator {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.8;
+    }
+}
+
+public class DescuentoDispositivosElectronicos implements DescuentoCalculator {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.4;
+    }
+}
+
+
+
+
+/////// main
+public class Main {
+    public static void main(String[] args) {
+        CentroComercial tienda1 = new CentroComercial("Tienda 1", "Ropa de niño", new DescuentoRopaNino());
+        CentroComercial tienda2 = new CentroComercial("Tienda 2", "Dispositivos Electrónicos", new DescuentoDispositivosElectronicos());
+
+        System.out.println(tienda1);
+        System.out.println("----------------------");
+        System.out.println(tienda2);
+    }
+}
