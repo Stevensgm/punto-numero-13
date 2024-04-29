@@ -1,0 +1,28 @@
+public class CentroComercial {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private CalculadoraDescuento calculadoraDescuento;
+
+    public CentroComercial(String nombreTienda, String tipoDeComercio, CalculadoraDescuento calculadoraDescuento) {
+        if (nombreTienda == null || tipoDeComercio == null || calculadoraDescuento == null) {
+            throw new IllegalArgumentException("Los argumentos no pueden ser nulos");
+        }
+        this.nombreTienda = nombreTienda;
+        this.tipoDeComercio = tipoDeComercio;
+        this.calculadoraDescuento = calculadoraDescuento;
+    }
+
+    public double calcularDescuento(double descuento) {
+        if (calculadoraDescuento == null) {
+            throw new IllegalStateException("No se ha asignado una calculadora de descuento");
+        }
+        return calculadoraDescuento.calcularDescuento(descuento);
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la tienda: " + nombreTienda +
+                "\nTipo de comercio: " + tipoDeComercio +
+                "\nDescuento aplicado: " + calcularDescuento(descuento);
+    }
+}
