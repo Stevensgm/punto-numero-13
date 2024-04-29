@@ -1,0 +1,44 @@
+
+public interface DescuentoCalculable {
+    double calcularDescuento(double descuento);
+}
+
+
+public class DescuentoRopaNino implements DescuentoCalculable {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.8;
+    }
+}
+
+
+public class DescuentoDispositivosElectronicos implements DescuentoCalculable {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.4;
+    }
+}
+
+
+public class CentroComercial {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private DescuentoCalculable descuentoCalculable;
+
+    public CentroComercial(String nombreTienda, String tipoDeComercio, DescuentoCalculable descuentoCalculable) {
+        this.nombreTienda = nombreTienda;
+        this.tipoDeComercio = tipoDeComercio;
+        this.descuentoCalculable = descuentoCalculable;
+    }
+
+    public double calcularDescuento(double descuento) {
+        return descuentoCalculable.calcularDescuento(descuento);
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la tienda: " + nombreTienda +
+                "\nTipo de comercio: " + tipoDeComercio +
+                "\nDescuento aplicado: " + calcularDescuento(descuento);
+    }
+}
