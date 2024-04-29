@@ -1,0 +1,50 @@
+////----- Crear una interfaz para la estrategia de cálculo de descuentos ----  carlos steven giraldo medina
+
+public interface CalculadoraDescuento {
+    double calcularDescuento(double descuento);
+}
+
+
+////----- Implementar diferentes estrategias de cálculo de descuentos
+
+public class DescuentoRopaNino implements CalculadoraDescuento {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.8;
+    }
+}
+
+public class DescuentoDispositivosElectronicos implements CalculadoraDescuento {
+    @Override
+    public double calcularDescuento(double descuento) {
+        return descuento * 0.4;
+    }
+}
+
+
+///// Modificar la clase CentroComercial para usar la interfaz
+
+public class CentroComercial {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private CalculadoraDescuento calculadoraDescuento;
+
+    public CentroComercial(String nombreTienda, String tipoDeComercio, CalculadoraDescuento calculadoraDescuento) {
+        this.nombreTienda = nombreTienda;
+        this.tipoDeComercio = tipoDeComercio;
+        this.calculadoraDescuento = calculadoraDescuento;
+    }
+
+    public double calcularDescuento(double descuento) {
+        return calculadoraDescuento.calcularDescuento(descuento);
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la tienda: " + nombreTienda +
+                "\nTipo de comercio: " + tipoDeComercio +
+                "\nDescuento aplicado: " + calcularDescuento(descuento);
+    }
+}
+
+//// con esta reorganizacion la clase (centrocomercial) ahora depende de una astraccion (calculadoradedescuento) en lugar de una sola implementacion. 
